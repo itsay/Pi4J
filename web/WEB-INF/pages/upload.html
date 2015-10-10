@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="POST" class="dropzone" enctype="multipart/form-data" action="/upload/">
+    <span>Chọn 1 hình ảnh nhỏ hơn 1.5MB</span>
+    <input type="file" name="file"/>
+    <br/>
+    <button type="submit">Upload</button>
+</form>
+
+<script src="/js/jquery2.1.3.min.js"></script>
+<script type="text/javascript">
+    var files;
+    $(document).ready(function(){
+        $('input[type=file]').on('change', prepareUpload);
+        $('form').on('submit', uploadFiles);
+    });
+    function prepareUpload(event){
+        files = event.target.files;
+    }
+
+    function uploadFiles(event){
+        event.stopPropagation(); // Stop stuff happening
+        event.preventDefault(); // Totally stop stuff happening
+
+        // START A LOADING SPINNER HERE
+
+        // Create a formdata object and add the files
+        var data = new FormData();
+        $.each(files, function(key, value)
+        {
+            if(value.size/1024/1024 > 15){
+                alert("file to large, it must be less than 3MB");
+                return;
+            }
+            data.append("file", value);
+        });
+        var k = 0;
+        for(var i = 0; i < 1; ++i){
+            $.ajax({
+                //url: 'https://secure.fmcmarketing.com:7443/upload/',
+                url: 'https://localhost:8443/upload',
+                type: 'POST',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                processData: false, // Don't process the files
+                contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                success: function(data, textStatus, jqXHR)
+                {
+                    if(typeof data.s !== "undefined"){
+                        // Success so call function to process the form
+                        //submitForm(event, data);
+                        console.log("success upload");
+                        if(++k == 10) alert("all upload success");
+                    }else{
+                        // Handle errors here
+                        console.log('ERRORS1: ' + data.s);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    // Handle errors here
+                    console.log('ERRORS: ' + textStatus);
+                    // STOP LOADING SPINNER
+                },timeout: 100000
+            });
+        }
+    }
+</script>
+</body>
+</html>

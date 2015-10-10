@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <meta charset="UTF-8">
+    <script src="js/jquery2.1.3.min.js"></script>
+</head>
+<body>
+<div class="container" style="max-width: 330px;"><br/>
+    <button class="btn btn-lg btn-primary btn-block" id="living">Living</button><br/>
+    <button class="btn btn-lg btn-primary btn-block" id="fan">Fan</button><br/>
+    <button class="btn btn-lg btn-primary btn-block" id="kitchen">Kitchen</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#living").click(function(){switchesLiving();});
+        $("#fan").click(function(){switchesFan();});
+        $("#kitchen").click(function(){switchesKitchen();});
+        getFanState();
+    });
+    
+    function switchesLiving(){
+        $.ajax({
+            url: '/pi/toggle?pin=8',
+            dataType: 'json', type: 'get', async: false, cache: false,
+            success: function () {
+                $("#toggle").toggleClass("text-danger");
+            }
+        });
+    }
+    function switchesFan(){
+        $.ajax({
+            url:'/pi/arduino?a=7',
+            dataType:'json', type:'get', async: false, cache:false,
+            success: function(){
+                var fan = $("#fan");
+                if(fan.hasClass('text-danger')) fan.removeClass('btn-danger');
+                else fan.addClass('btn-danger')
+            }
+        });
+    }
+    function switchesKitchen(){
+        $.ajax({
+            url:'/pi/arduino?a=6',
+            dataType:'json', type:'get', async: false, cache:false,
+            success: function(){
+                $("#kitchen").toggleClass("text-danger");
+            }
+        });
+    }
+    function getFanState(){
+        $.ajax({
+            url:'/pi/arduino?a=status&p=7',
+            dataType:'json', type:'get', async: false, cache:false,
+            success: function(rs){
+                if(rs.status == 'ON')
+                    $("#fan").addClass('btn-danger');
+                else $("#fan").removeClass('btn-danger');
+            }
+        });
+    }
+</script>
+</body>
+</html>

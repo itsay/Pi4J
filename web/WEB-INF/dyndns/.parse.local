@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "dyndns"
+    },
+    "dyndns": {
+      "applicationId": "hkQOQhd0lhSbcFkGyxM8AH0CqJOXifpuyNOP1N7F"
+    }
+  }
+}

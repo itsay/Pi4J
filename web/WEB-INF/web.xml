@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>Raspberry PI</display-name>
+    <servlet>
+        <servlet-name>state</servlet-name>
+        <servlet-class>sb.action.CheckState</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>toggle</servlet-name>
+        <servlet-class>sb.action.ToggleStateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>arduino</servlet-name>
+        <servlet-class>sb.action.ArduinoController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>state</servlet-name>
+        <url-pattern>/state/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>toggle</servlet-name>
+        <url-pattern>/toggle/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>arduino</servlet-name>
+        <url-pattern>/arduino/*</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <description>Prepare config for application</description>
+        <listener-class>sb.action.ContextLoaderListener</listener-class>
+    </listener>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/404.html</location>
+    </error-page>
+</web-app>
