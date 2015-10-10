@@ -1,5 +1,7 @@
 package sb.action;
 
+import util.CronScheduler;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +31,14 @@ public class ArduinoController extends HttpServlet {
             command = "/home/pi/sendMsgArdunio8.sh";
         }else if("7".equals(req.getParameter("a"))){
             command = "/home/pi/sendMsgArdunio7.sh";
-            if(Constant.ARDUINO_PIN7 == Constant.Status.ON) Constant.ARDUINO_PIN7 = Constant.Status.OFF;
-            else Constant.ARDUINO_PIN7 = Constant.Status.ON;
+            if (Constant.ARDUINO_PIN7 == Constant.Status.ON) {
+                Constant.ARDUINO_PIN7 = Constant.Status.OFF;
+            } else {
+                Constant.ARDUINO_PIN7 = Constant.Status.ON;
+                if(req.getParameter("t") != null){
+                    new CronScheduler().switchoffFan(Integer.valueOf(req.getParameter("t")));
+                }
+            }
         }else if("6".equals(req.getParameter("a"))){
             command = "/home/pi/sendMsgArdunio6.sh";
         }else if("5".equals(req.getParameter("a"))){
@@ -55,5 +63,17 @@ public class ArduinoController extends HttpServlet {
             if(line.contains("resolve")) done = 1;
         }
         resp.getWriter().print("{\"status\": " + done + "}");
+    }
+
+    public void turnOffFan() {
+        if (Constant.ARDUINO_PIN7 == Constant.Status.ON) {
+            ProcessBuilder pb = new ProcessBuilder("/home/pi/sendMsgArdunio7.sh");
+            try {
+                pb.start();
+            } catch (IOException e) {
+                e.getMessage();
+            }
+            Constant.ARDUINO_PIN7 = Constant.Status.OFF;
+        }
     }
 }
