@@ -18,7 +18,7 @@ public class ArduinoController extends HttpServlet {
         resp.setContentType("application/json;charset=UTF-8");
         if("status".equals(req.getParameter("a"))){ //action = status
             if("7".equals(req.getParameter("p"))){ //pin
-                resp.getWriter().print("{\"status\": " + Constant.ARDUINO_PIN7 + "}");
+                resp.getWriter().print("{\"status\": \"" + Constant.ARDUINO_PIN7 + "\"}");
             }else if("6".equals(req.getParameter("p"))){
 
             }
