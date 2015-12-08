@@ -18,6 +18,8 @@
           <button class="btn btn-lg btn-primary btn-block" id="fan" type="button" style="width: 150px;">Fan</button>
        </span>
     </div><br/>
+    <button class="btn btn-lg btn-primary btn-block" id="ceil">Ceil</button>
+    <button class="btn btn-lg btn-primary btn-block" id="cat">Cat</button>
     <button class="btn btn-lg btn-primary btn-block" id="kitchen">Kitchen</button>
 </div>
 
@@ -26,6 +28,8 @@
         $("#living").click(function(){switchesLiving();});
         $("#fan").click(function(){switchesFan();});
         $("#kitchen").click(function(){switchesKitchen();});
+        $("#ceil").click(function(){switchesCeil();});
+        $("#cat").click(function(){switchesCat();});
         getFanState();
     });
     
@@ -38,6 +42,26 @@
             }
         });
     }
+    function switchesCeil(){
+        $.ajax({
+            url: '/pi/toggle?pin=7',
+            dataType: 'json', type: 'get', async: false, cache: false,
+            success: function () {
+                $("#ceil").toggleClass("text-danger");
+            }
+        });
+    }
+
+    function switchesCat(){
+        $.ajax({
+            url: '/pi/arduino?a=6&t=' + $('#nextTime').val(),
+            dataType: 'json', type: 'get', async: false, cache: false,
+            success: function () {
+                $("#cat").toggleClass("text-danger");
+            }
+        });
+    }
+
     function switchesFan(){
         $.ajax({
             url:'/pi/arduino?a=7&t=' + $('#nextTime').val(),
@@ -51,7 +75,7 @@
     }
     function switchesKitchen(){
         $.ajax({
-            url:'/pi/arduino?a=6',
+            url:'/pi/arduino?a=5&t=' + $('#nextTime').val(),
             dataType:'json', type:'get', async: false, cache:false,
             success: function(){
                 $("#kitchen").toggleClass("text-danger");
