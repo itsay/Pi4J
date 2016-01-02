@@ -25,7 +25,7 @@ public class CronScheduler implements Job {
             //more information: http://quartz-scheduler.org/api/2.0.0/org/quartz/CronExpression.html
             //and http://quartz-scheduler.org/api/2.0.0/org/quartz/CronTrigger.html
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity("UpdateIP", "UpdateIP")
-                    .withSchedule(CronScheduleBuilder.cronSchedule("0 1 00 * * ?")).build();
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * 1/1 * ? *")).build();
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             e.printStackTrace();

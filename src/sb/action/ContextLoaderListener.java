@@ -2,6 +2,7 @@ package sb.action;
 
 
 import jodd.props.Props;
+import util.CronScheduler;
 import util.ParseUtil;
 
 import javax.servlet.ServletContextEvent;
@@ -19,6 +20,7 @@ public class ContextLoaderListener implements ServletContextListener {
             Constant.P.load(ContextLoaderListener.class.getResourceAsStream("/config.properties"));
             MyLed.getInstance();
             new ParseUtil().updateAddress();
+            new CronScheduler().updateIp();
         } catch (IOException e) {
             e.printStackTrace();
         }
