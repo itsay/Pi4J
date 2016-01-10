@@ -13,7 +13,7 @@
 <div class="container" style="max-width: 330px;"><br/>
     <button class="btn btn-lg btn-primary btn-block" id="living">Living</button><br/>
     <div class="input-group">
-        <input type="text" class="form-control input-lg" id="nextTime" value="30" />
+        <input type="text" class="form-control input-lg" id="nextTime" value="0" />
        <span class="input-group-btn">
           <button class="btn btn-lg btn-primary btn-block" id="fan" type="button" style="width: 150px;">Fan</button>
        </span>
@@ -54,7 +54,7 @@
 
     function switchesCat(){
         $.ajax({
-            url: '/pi/arduino?a=6&t=' + $('#nextTime').val(),
+            url: '/pi/arduino?a=6',
             dataType: 'json', type: 'get', async: false, cache: false,
             success: function () {
                 $("#cat").toggleClass("text-danger");
@@ -63,8 +63,12 @@
     }
 
     function switchesFan(){
+        var _url = '/pi/arduino?a=7';
+        if($('#nextTime').val() != 0){
+            _url += "&t=" + $('#nextTime').val();
+        }
         $.ajax({
-            url:'/pi/arduino?a=7&t=' + $('#nextTime').val(),
+            url: _url,
             dataType:'json', type:'get', async: false, cache:false,
             success: function(){
                 var fan = $("#fan");

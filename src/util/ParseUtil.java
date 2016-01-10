@@ -20,7 +20,7 @@ public class ParseUtil {
                 .header("Content-Type", "application/json")
                 .body("{\"address\":\"" + getCurrentIP() + ":" + Constant.P.getValue("port")  + "\"}")
                 .send();*/
-        HttpResponse response = HttpRequest.get("http://duckdns.org/update/g8tuananh.duckdns.org/8929d214-42d5-4d9f-80ee-d7aaf073c0c4/").send();
+        HttpResponse response = HttpRequest.get("http://duckdns.org/update/"+Constant.P.getValue("domain")+"/"+Constant.P.getValue("token")+"/").send();
         System.out.println("Update IP: "+response.body());
     }
 }

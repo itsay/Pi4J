@@ -72,8 +72,8 @@ public class MyLed {
         led01Out.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
         led02Out = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "LED 02 out", PinState.HIGH);
         led02Out.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
-        /*led03Out = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "LED 03 out", PinState.HIGH);
-        led03Out.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);*/
+        led03Out = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "LED 03 out", PinState.HIGH);
+        led03Out.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
         led04Out = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "LED 04 out", PinState.HIGH);
         led04Out.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
         led05Out = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "LED 05 out", PinState.HIGH);

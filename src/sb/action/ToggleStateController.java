@@ -22,7 +22,11 @@ public class ToggleStateController extends HttpServlet {
             }else if (n == 1) {
                 MyLed.getInstance().led01Out.toggle();
             }else if (n == 2) {
-                MyLed.getInstance().led02Out.toggle();
+                try {
+                    MyLed.getInstance().led02Out.toggle();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }else if (n == 3) {
                 MyLed.getInstance().led03Out.toggle();
             }else if (n == 4) {
