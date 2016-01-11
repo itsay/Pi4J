@@ -16,6 +16,10 @@
         <servlet-name>arduino</servlet-name>
         <servlet-class>sb.action.ArduinoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>config</servlet-name>
+        <servlet-class>sb.action.Config</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>state</servlet-name>
         <url-pattern>/state/*</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>arduino</servlet-name>
         <url-pattern>/arduino/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>config</servlet-name>
+        <url-pattern>/config/*</url-pattern>
     </servlet-mapping>
 
     <listener>
